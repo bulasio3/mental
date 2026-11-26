@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mind Your Mind — Heal • Grow • Thrive</title>
+<meta name="description" content="A safe space to understand your mental health, find support, share your story, and discover that healing is possible." />
+<style>
+  :root{
+    --teal:#0f766e; --teal-dark:#0b5b55; --teal-soft:#e6f4f1;
+    --cream:#fdf9f3; --ink:#1f2a2e; --muted:#5b6b70;
+    --amber:#f2a93b; --coral:#e2725b; --white:#fff;
+    --radius:18px; --shadow:0 10px 30px rgba(15,118,110,.10);
+    --font:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);background:var(--cream);color:var(--ink);line-height:1.65}
+  a{color:inherit;text-decoration:none}
+  .container{width:min(1120px,92%);margin:0 auto}
+  .btn{display:inline-block;padding:11px 20px;border-radius:999px;font-weight:700;font-size:.92rem;border:none;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .15s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:var(--shadow)}
+  .btn-primary:hover{background:var(--teal-dark)}
+  .btn-ghost{background:transparent;color:var(--teal);border:2px solid var(--teal)}
+  .btn-light{background:#fff;color:var(--teal)}
+  .btn-coral{background:var(--coral);color:#fff}
+  .btn-coral:hover{background:#c95c47}
+  .btn-wa{background:#25D366;color:#fff}
+  .btn-wa:hover{background:#1eb857}
+  .btn-amber{background:var(--amber);color:#3a2a05}
+  .btn-amber:hover{background:#e09a2a}
+  .section{padding:64px 0}
+  .section-head{text-align:center;margin-bottom:42px}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:10px}
+  .section-head p{color:var(--muted);max-width:680px;margin:0 auto}
+  .grid{display:grid;gap:20px}
+  .grid-2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .grid-4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{background:#fff;border-radius:var(--radius);padding:26px 24px;border:1px solid #f0e9dd;box-shadow:0 4px 18px rgba(31,42,46,.06);transition:transform .2s ease,box-shadow .2s ease}
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .card h3{font-size:1.08rem;margin-bottom:8px}
+  .card p{font-size:.92rem;color:var(--muted);margin-bottom:12px}
+  .card .icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:1.4rem;margin-bottom:14px;background:var(--teal-soft)}
+  .tag{font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--teal);display:inline-block;margin-bottom:8px}
+  .muted{color:var(--muted)}
+
+  /* Urgent bar */
+  .urgent-bar{background:var(--coral);color:#fff;font-size:.9rem;text-align:center;padding:8px 16px}
+  .urgent-bar a{text-decoration:underline;font-weight:600}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(253,249,243,.95);backdrop-filter:blur(8px);border-bottom:1px solid #eee4d6}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--teal),#2bb3a3);display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.1rem}
+  .brand-text strong{display:block;font-size:1.02rem;letter-spacing:.4px}
+  .brand-text span{font-size:.7rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+  .nav-links{display:flex;gap:18px;font-size:.9rem;font-weight:600;color:var(--muted);flex-wrap:wrap;align-items:center}
+  .nav-links a:hover{color:var(--teal)}
+  .nav-toggle{display:none;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--teal)}
+
+  /* Hero */
+  .hero{padding:78px 0 56px;text-align:center;background:radial-gradient(circle at 85% 10%,rgba(43,179,163,.14),transparent 45%),radial-gradient(circle at 10% 80%,rgba(242,169,59,.12),transparent 40%),var(--cream)}
+  .hero .kicker{display:inline-block;background:var(--teal-soft);color:var(--teal-dark);font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.12;letter-spacing:-.5px;margin-bottom:8px}
+  .hero h1 .accent{color:var(--teal)}
+  .hero .tagline{font-size:.95rem;letter-spacing:4px;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:20px}
+  .hero p.lead{max-width:640px;margin:0 auto 32px;color:var(--muted);font-size:1.1rem}
+  .hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+  /* Page hero (inner pages) */
+  .page-hero{padding:56px 0 28px;text-align:center;background:radial-gradient(circle at 80% 0%,rgba(43,179,163,.12),transparent 45%),var(--cream)}
+  .page-hero h1{font-size:clamp(1.9rem,4vw,2.8rem);margin-bottom:10px}
+  .page-hero p{color:var(--muted);max-width:680px;margin:0 auto}
+  .breadcrumb{font-size:.82rem;color:var(--muted);margin-bottom:16px}
+  .breadcrumb a{color:var(--teal);font-weight:600}
+
+  /* Community banner */
+  .community{background:linear-gradient(135deg,var(--teal),#12807a 55%,#16a394);color:#fff;border-radius:28px;padding:54px 40px;text-align:center;margin:0 auto}
+  .community h2{font-size:clamp(1.6rem,3vw,2.3rem);margin-bottom:12px}
+  .community p{max-width:640px;margin:0 auto 24px;opacity:.94}
+
+  /* Stories */
+  .story{background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid #f0e9dd;box-shadow:0 4px 18px rgba(31,42,46,.06);transition:transform .2s ease}
+  .story:hover{transform:translateY(-5px)}
+  .story .thumb{height:120px;background:linear-gradient(135deg,#f7d9a8,#e2725b)}
+  .story:nth-child(3n+2) .thumb{background:linear-gradient(135deg,#b8e3dc,#2bb3a3)}
+  .story:nth-child(3n+3) .thumb{background:linear-gradient(135deg,#c9d6f5,#6a86d6)}
+  .story .body{padding:20px}
+  .story h3{font-size:1.02rem;margin-bottom:6px}
+  .story p{font-size:.9rem;color:var(--muted)}
+
+  /* Faith strip */
+  .faith{background:#fff7ea;border:1px solid #f4e3c4;border-radius:24px;padding:44px 36px;text-align:center}
+  .faith h2{font-size:clamp(1.4rem,2.6vw,1.9rem);margin-bottom:12px}
+  .faith p{max-width:720px;margin:0 auto;color:var(--muted);font-style:italic}
+
+  /* Conditions accordion */
+  .accordion{max-width:900px;margin:0 auto}
+  .acc-item{background:#fff;border:1px solid #f0e9dd;border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 3px 12px rgba(31,42,46,.05)}
+  .acc-btn{width:100%;text-align:left;background:none;border:none;padding:18px 22px;font-size:1rem;font-weight:700;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .acc-btn:hover{background:var(--teal-soft)}
+  .acc-btn .plus{color:var(--teal);font-size:1.3rem;transition:transform .2s ease}
+  .acc-item.open .plus{transform:rotate(45deg)}
+  .acc-panel{display:none;padding:0 22px 22px;border-top:1px solid #f0e9dd}
+  .acc-item.open .acc-panel{display:block}
+  .acc-panel h4{font-size:.9rem;color:var(--teal);margin:14px 0 4px;text-transform:uppercase;letter-spacing:.5px}
+  .acc-panel p,.acc-panel li{font-size:.92rem;color:var(--muted)}
+  .acc-panel ul{padding-left:20px;margin-bottom:6px}
+  .myth-fact{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  .myth-fact div{border-radius:12px;padding:14px 16px;font-size:.88rem}
+  .myth{background:#fdecea;border:1px solid #f5c6c0}
+  .fact{background:#e8f6ef;border:1px solid #bce3cf}
+  .myth strong{color:#b23b2a}
+  .fact strong{color:#1e7a4d}
+
+  /* "Is this what I am feeling" */
+  .feeling-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;max-width:960px;margin:0 auto}
+  .feeling{background:#fff;border:1px solid #f0e9dd;border-radius:12px;padding:16px 18px;font-size:.92rem;color:var(--muted);cursor:pointer;transition:background .15s ease,border-color .15s ease}
+  .feeling:hover{background:var(--teal-soft);border-color:#bfe3dc}
+  .feeling strong{color:var(--ink);display:block;margin-bottom:2px;font-size:.95rem}
+
+  /* Forms */
+  form .field{margin-bottom:16px}
+  form label{display:block;font-size:.88rem;font-weight:600;margin-bottom:6px}
+  form input,form select,form textarea{width:100%;padding:12px 14px;border:1px solid #d9d2c4;border-radius:10px;font-family:inherit;font-size:.95rem;background:#fff;color:var(--ink)}
+  form input:focus,form select:focus,form textarea:focus{outline:2px solid var(--teal);border-color:transparent}
+  form textarea{min-height:140px;resize:vertical}
+  .form-wrap{max-width:680px;margin:0 auto;background:#fff;border-radius:var(--radius);padding:32px;border:1px solid #f0e9dd;box-shadow:var(--shadow)}
+  .notice{background:var(--teal-soft);border-left:4px solid var(--teal);padding:14px 18px;border-radius:10px;font-size:.88rem;color:var(--teal-dark);margin-bottom:20px}
+  .success-msg{display:none;background:#e8f6ef;border:1px solid #bce3cf;color:#1e7a4d;padding:16px 18px;border-radius:12px;font-size:.92rem;margin-top:16px}
+
+  /* Directory */
+  .dir-card{background:#fff;border:1px solid #f0e9dd;border-radius:14px;padding:22px;box-shadow:0 4px 14px rgba(31,42,46,.05)}
+  .dir-card h3{font-size:1.05rem;margin-bottom:4px}
+  .dir-card .loc{font-size:.85rem;color:var(--teal);font-weight:600;margin-bottom:10px}
+  .dir-card ul{list-style:none;font-size:.88rem;color:var(--muted);margin-bottom:12px}
+  .dir-card ul li{padding:3px 0;border-bottom:1px dashed #f0e9dd}
+  .dir-card ul li:last-child{border-bottom:none}
+  .dir-card .contact-row{display:flex;gap:8px;flex-wrap:wrap}
+  .dir-card .contact-row a{font-size:.82rem;padding:7px 13px;border-radius:999px;font-weight:700}
+  .pill{display:inline-block;background:var(--teal-soft);color:var(--teal-dark);font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:999px;margin:0 6px 6px 0}
+
+  /* Contact methods */
+  .contact-methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-bottom:48px}
+  .contact-card{background:#fff;border-radius:var(--radius);padding:30px 24px;text-align:center;border:1px solid #f0e9dd;box-shadow:var(--shadow);transition:transform .2s ease}
+  .contact-card:hover{transform:translateY(-5px)}
+  .contact-card .c-icon{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;font-size:1.6rem}
+  .contact-card h3{font-size:1.1rem;margin-bottom:6px}
+  .contact-card p{font-size:.88rem;color:var(--muted);margin-bottom:18px}
+  .contact-card .btn{width:100%}
+  .icon-phone{background:#e3f0fd}
+  .icon-wa{background:#dcf8e6}
+  .icon-mail{background:#fdecea}
+  .icon-loc{background:#fff3d6}
+
+  /* FAQ */
+  .faq-item{background:#fff;border:1px solid #f0e9dd;border-radius:14px;margin-bottom:10px;overflow:hidden}
+  .faq-q{width:100%;text-align:left;background:none;border:none;padding:16px 20px;font-weight:700;font-size:.95rem;cursor:pointer;display:flex;justify-content:space-between;gap:10px;color:var(--ink)}
+  .faq-q:hover{background:var(--teal-soft)}
+  .faq-a{display:none;padding:0 20px 18px;font-size:.9rem;color:var(--muted)}
+  .faq-item.open .faq-a{display:block}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg)}
+  .faq-q .plus{color:var(--teal);font-size:1.2rem;transition:transform .2s}
+
+  /* Footer */
+  footer{background:#12302c;color:#cfe3df;padding:52px 0 26px;margin-top:40px}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;margin-bottom:34px}
+  footer h4{color:#fff;font-size:.92rem;margin-bottom:12px;letter-spacing:.5px}
+  footer a{color:#a9c7c1;font-size:.88rem;display:block;margin-bottom:7px}
+  footer a:hover{color:#fff}
+  footer .brand-text strong{color:#fff}
+  footer .brand-text span{color:#7fa9a2}
+  .disclaimer{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;font-size:.8rem;color:#8fb3ad;line-height:1.65}
+
+  /* Responsive */
+  @media(max-width:900px){
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--cream);flex-direction:column;align-items:flex-start;padding:18px 5%;border-bottom:1px solid #eee4d6;box-shadow:0 10px 20px rgba(0,0,0,.06)}
+    .nav-links.show{display:flex}
+    .nav-toggle{display:block}
+    .myth-fact{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:520px){
+    .footer-grid{grid-template-columns:1fr}
+    .form-wrap{padding:22px}
+    .community{padding:38px 22px}
+  }
+</style>
+</head>
+<body>
+
+<!-- URGENT BAR -->
+<div class="urgent-bar">
+  If you are in immediate danger or crisis, go to the nearest hospital or call emergency services. <a href="#urgent">Get urgent help →</a>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home">
+      <div class="brand-mark">M</div>
+      <div class="brand-text"><strong>Mind Your Mind</strong><span>Heal • Grow • Thrive</span></div>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</button>
+    <nav class="nav-links">
+      <a href="#understand">Understand</a>
+      <a href="#support">Support</a>
+      <a href="#community">Community</a>
+      <a href="#stories">Stories</a>
+      <a href="#faith">Faith</a>
+      <a href="#ask">Ask</a>
+      <a href="#directory">Find Help</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn-primary" href="#ask">Ask a Question</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HOME ============ -->
+<main id="home">
+<section class="hero">
+  <div class="container">
+    <span class="kicker">A Safe Space for Healing</span>
+    <h1>Your mind matters.<br /><span class="accent">Your story matters. You matter.</span></h1>
+    <p class="tagline">Heal • Grow • Thrive</p>
+    <p class="lead">Whatever you are going through, you don't have to go through it alone. A safe space to understand your mental health, find support, share your story, and discover that healing is possible.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#understand">Explore. Learn. Connect. Heal.</a>
+      <a class="btn btn-ghost" href="#community">Join the Community</a>
+    </div>
+  </div>
+</section>
+
+<!-- Pathways -->
+<section class="section">
+  <div class="container">
+    <div class="section-head"><h2>What brings you here today?</h2><p>Start wherever you are. There is no wrong way to begin.</p></div>
+    <div class="grid grid-4">
+      <div class="card"><div class="icon">📖</div><h3>I want answers</h3><p>Understand mental health conditions, symptoms, and what you may be experiencing.</p><a class="more" href="#understand" style="color:var(--teal);font-weight:700;font-size:.88rem">Understand mental health →</a></div>
+      <div class="card"><div class="icon">🤝</div><h3>I need support</h3><p>Practical coping strategies and pathways to professional help near you.</p><a class="more" href="#support" style="color:var(--teal);font-weight:700;font-size:.88rem">Find guidance and help →</a></div>
+      <div class="card"><div class="icon">💬</div><h3>I need connection</h3><p>Join moderated peer communities and talk with people who understand.</p><a class="more" href="#community" style="color:var(--teal);font-weight:700;font-size:.88rem">Join a supportive community →</a></div>
+      <div class="card"><div class="icon">🌱</div><h3>I need hope</h3><p>Read real stories of resilience, recovery, courage, and growth.</p><a class="more" href="#stories" style="color:var(--teal);font-weight:700;font-size:.88rem">Read stories of healing →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- Community banner -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="community">
+      <h2>You are not alone.</h2>
+      <p>Sometimes healing begins when we find someone who understands. Connect with people who are willing to listen, share, and encourage one another in a safe, moderated space.</p>
+      <a class="btn btn-light" href="#community">Join the Mind Your Mind Community →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Stories preview -->
+<section class="section" id="stories-preview" style="padding-top:0">
+  <div class="container">
+    <div class="section-head"><h2>Stories that remind us healing is possible</h2><p>Read experiences of resilience, recovery, courage, and hope — shared with dignity, consent, and respect.</p></div>
+    <div class="grid grid-3">
+      <article class="story"><div class="thumb"></div><div class="body"><span class="tag">Depression</span><h3>My journey through depression</h3><p>How small steps and honest conversations became the beginning of healing.</p></div></article>
+      <article class="story"><div class="thumb"></div><div class="body"><span class="tag">Recovery</span><h3>How I began recovering from alcohol dependence</h3><p>A story of asking for help, community, and taking life one day at a time.</p></div></article>
+      <article class="story"><div class="thumb"></div><div class="body"><span class="tag">Anxiety</span><h3>Learning to live with anxiety</h3><p>Finding calm, self-compassion, and practical tools for everyday life.</p></div></article>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ UNDERSTAND ============ -->
+<section class="section" id="understand" style="background:#fff">
+  <div class="container">
+    <div class="breadcrumb"><a href="#home">Home</a> / Understanding Mental Health</div>
+    <div class="section-head"><h2>Understanding Mental Health</h2><p>A plain-language library of mental health conditions — what they are, signs, causes, treatment, and where to find help. Not a diagnosis.</p></div>
+
+    <div class="accordion" id="conditions">
+
+      <div class="acc-item">
+        <button class="acc-btn">Mood Disorders <span class="plus">+</span></button>
+        <div class="acc-panel">
+          <p>Mood disorders affect how a person feels emotionally over time — beyond ordinary sadness or ups and downs.</p>
+          <h4>Conditions covered</h4>
+          <ul><li>Depression</li><li>Bipolar disorder</li><li>Disruptive mood dysregulation disorder (DMDD)</li></ul>
+          <h4>Signs & symptoms</h4>
+          <ul><li>Persistent low mood or loss of interest</li><li>Changes in sleep, appetite, or energy</li><li>Periods of unusually high or irritable mood (bipolar)</li><li>Difficulty concentrating or functioning</li></ul>
+          <h4>Causes & risk factors</h4>
+          <p>Genetics, brain chemistry, stressful life events, trauma, chronic illness, and social factors can all play a role.</p>
+          <h4>Treatment & support</h4>
+          <p>Talking therapy, medication (prescribed by a professional), lifestyle changes, and family support.</p>
+          <h4>When to seek help</h4>
+          <p>When symptoms last more than two weeks, affect daily life, or include thoughts of self-harm.</p>
+          <div class="myth-fact">
+            <div class="myth"><strong>Myth:</strong> Depression is just laziness or a lack of faith.</div>
+            <div class="fact"><strong>Fact:</strong> Depression is a real, treatable health condition — not a character flaw.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn">Anxiety & Related Disorders <span class="plus">+</span></button>
+        <div class="acc-panel">
+          <p>Anxiety disorders involve intense, persistent worry or fear that interferes with daily life.</p>
+          <h4>Conditions covered</h4>
+          <ul><li>Generalised anxiety disorder</li><li>Social anxiety</li><li>Panic disorder</li><li>Obsessive-compulsive disorder (OCD)</li></ul>
+          <h4>Signs & symptoms</h4>
+          <ul><li>Constant worry or overthinking</li><li>Racing heart, sweating, trembling</li><li>Avoiding situations out of fear</li><li>Repetitive thoughts or behaviours (OCD)</li></ul>
+          <h4>Treatment & support</h4>
+          <p>Cognitive behavioural therapy (CBT), relaxation skills, medication where appropriate, and peer support.</p>
+          <div class="myth-fact">
+            <div class="myth"><strong>Myth:</strong> You can just "snap out of it".</div>
+            <div class="fact"><strong>Fact:</strong> Anxiety disorders are treatable — but they usually need real support, not willpower alone.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn">Neurodevelopmental Conditions <span class="plus">+</span></button>
+        <div class="acc-panel">
+          <p>Conditions that affect how the brain develops and functions, often noticeable in childhood.</p>
+          <h4>Conditions covered</h4>
+          <ul><li>Autism spectrum disorder</li><li>Attention-deficit/hyperactivity disorder (ADHD)</li><li>Intellectual disability</li></ul>
+          <h4>Signs & symptoms</h4>
+          <ul><li>Differences in communication and social interaction (autism)</li><li>Difficulty sustaining attention, impulsivity, restlessness (ADHD)</li><li>Delayed developmental milestones</li></ul>
+          <h4>Support</h4>
+          <p>Early assessment, speech/occupational therapy, educational support, and family coaching.</p>
+          <div class="myth-fact">
+            <div class="myth"><strong>Myth:</strong> ADHD means a child is just badly behaved.</div>
+            <div class="fact"><strong>Fact:</strong> ADHD is a recognised neurodevelopmental condition that responds to support and structure.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn">Psychotic Disorders <span class="plus">+</span></button>
+        <div class="acc-panel">
+          <p>Conditions that affect a person's sense of reality — including thoughts, perceptions, and behaviour.</p>
+          <h4>Conditions covered</h4>
+          <ul><li>Schizophrenia</li><li>Related psychotic experiences</li></ul>
+          <h4>Signs & symptoms</h4>
+          <ul><li>Hallucinations (hearing or seeing things others don't)</li><li>Delusions (strong beliefs not shared by others)</li><li>Disorganised thinking or speech</li><li>Withdrawal and changes in functioning</li></ul>
+          <h4>Treatment</h4>
+          <p>Psychiatric assessment, medication, family support, and psychosocial rehabilitation. Early treatment improves outcomes.</p>
+          <div class="myth-fact">
+            <div class="myth"><strong>Myth:</strong> Psychosis is a spiritual attack that only prayer can fix.</div>
+            <div class="fact"><strong>Fact:</strong> Spiritual support can help — but psychosis needs medical care. Both can work together.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn">Substance Use & Addictive Disorders <span class="plus">+</span></button>
+        <div class="acc-panel">
+          <p>Challenges with alcohol, drugs, or behaviours that become compulsive and harmful.</p>
+          <h4>Conditions covered</h4>
+          <ul><li>Alcohol use disorder</li><li>Cannabis use disorder</li><li>Other substance-related challenges</li></ul>
+          <h4>Signs & symptoms</h4>
+          <ul><li>Difficulty stopping or cutting down</li><li>Cravings and withdrawal</li><li>Neglecting responsibilities</li><li>Continued use despite harm</li></ul>
+          <h4>Support</h4>
+          <p>Detox where needed, counselling, peer recovery groups, family involvement, and rehabilitation centres.</p>
+          <div class="myth-fact">
+            <div class="myth"><strong>Myth:</strong> Addiction is a moral failure.</div>
+            <div class="fact"><strong>Fact:</strong> Addiction is a health condition — recovery is possible with the right support.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn">Childhood & Behavioural Conditions <span class="plus">+</span></button>
+        <div class="acc-panel">
+          <p>Conditions that appear in childhood and affect behaviour, emotions, or development.</p>
+          <h4>Conditions covered</h4>
+          <ul><li>Encopresis</li><li>Enuresis</li><li>Oppositional defiant disorder (ODD)</li><li>Conduct disorder (CD)</li><li>Selective mutism</li></ul>
+          <h4>Support</h4>
+          <p>Child assessment, parenting support, school collaboration, and therapy.</p>
+          <div class="myth-fact">
+            <div class="myth"><strong>Myth:</strong> A difficult child just needs stricter discipline.</div>
+            <div class="fact"><strong>Fact:</strong> Behavioural conditions often need understanding and professional support — not punishment.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Is this what I am feeling -->
+    <div class="section-head" style="margin-top:56px"><h2>Is This What I Am Feeling?</h2><p>You don't need a diagnosis to deserve support. These everyday experiences are common — and you are not alone.</p></div>
+    <div class="feeling-list">
+      <div class="feeling"><strong>Why do I feel lonely even when surrounded by people?</strong>You can be surrounded and still feel unseen. Belonging is about connection, not company.</div>
+      <div class="feeling"><strong>Why am I always overthinking?</strong>Overthinking is often the mind trying to feel safe. It can be calmed with practice and support.</div>
+      <div class="feeling"><strong>Why do I struggle to say no?</strong>Boundaries are a skill. Struggling with them often comes from fear of disappointing others.</div>
+      <div class="feeling"><strong>Why do I feel emotionally exhausted?</strong>Emotional exhaustion can follow prolonged stress, caregiving, or unresolved pain.</div>
+      <div class="feeling"><strong>Why am I afraid of being abandoned?</strong>Fear of abandonment often traces back to early experiences. It can heal.</div>
+      <div class="feeling"><strong>Why do I feel guilty when I prioritise myself?</strong>Self-care can feel selfish when you've learned to put others first. It isn't.</div>
+      <div class="feeling"><strong>Why do I feel like I am never good enough?</strong>That voice is not the truth about you. It can be challenged with support.</div>
+      <div class="feeling"><strong>Why do I feel empty even when things seem fine?</strong>Emptiness can signal unmet emotional needs or unresolved grief. You deserve care.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUPPORT ============ -->
+<section class="section" id="support" style="background:var(--cream)">
+  <div class="container">
+    <div class="breadcrumb"><a href="#home">Home</a> / The Support Corner</div>
+    <div class="section-head"><h2>The Support Corner</h2><p>Practical coping strategies, self-care, and pathways to professional help.</p></div>
+    <div class="grid grid-3">
+      <div class="card"><div class="icon">🌬️</div><h3>Grounding & breathing</h3><p>Simple 4-7-8 breathing and 5-4-3-2-1 grounding exercises to calm the nervous system in moments of distress.</p></div>
+      <div class="card"><div class="icon">🛏️</div><h3>Sleep & routine</h3><p>Consistent sleep and wake times, reduced screens before bed, and gentle daily structure can stabilise mood.</p></div>
+      <div class="card"><div class="icon">📓</div><h3>Journaling</h3><p>Writing down thoughts can reduce their intensity. Try three lines a day: what I felt, what I need, what I can do.</p></div>
+      <div class="card"><div class="icon">🤝</div><h3>Asking for help</h3><p>You don't need to explain everything perfectly. "I'm struggling and I'd like support" is enough to begin.</p></div>
+      <div class="card"><div class="icon">🚶</div><h3>Movement</h3><p>A short walk, stretching, or dancing can shift mood. Movement is medicine for the mind.</p></div>
+      <div class="card"><div class="icon">📵</div><h3>Digital boundaries</h3><p>Unfollow accounts that make you feel small. Curate your feed like you curate your space.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:36px"><a class="btn btn-primary" href="#directory">Find professional support →</a></div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY ============ -->
+<section class="section" id="community" style="background:#fff">
+  <div class="container">
+    <div class="breadcrumb"><a href="#home">Home</a> / The Community</div>
+    <div class="section-head"><h2>The Mind Your Mind Community</h2><p><em>You are not alone. Your story matters.</em></p></div>
+    <div class="grid grid-3">
+      <div class="card"><div class="icon">💚</div><h3>Healing from Depression</h3><p>Peer encouragement and shared coping experiences.</p><a class="btn btn-wa" style="font-size:.82rem;padding:8px 16px" href="#contact">Join on WhatsApp</a></div>
+      <div class="card"><div class="icon">🌊</div><h3>Anxiety & Overthinking</h3><p>Strategies for managing anxiety together.</p><a class="btn btn-wa" style="font-size:.82rem;padding:8px 16px" href="#contact">Join on WhatsApp</a></div>
+      <div class="card"><div class="icon">🌱</div><h3>Addiction Recovery</h3><p>Support for people recovering from substance use.</p><a class="btn btn-wa" style="font-size:.82rem;padding:8px 16px" href="#contact">Join on WhatsApp</a></div>
+      <div class="card"><div class="icon">🕊️</div><h3>Grief & Loss</h3><p>A supportive environment for bereaved people.</p><a class="btn btn-wa" style="font-size:.82rem;padding:8px 16px" href="#contact">Join on WhatsApp</a></div>
+      <div class="card"><div class="icon">👨‍👩‍👧</div><h3>Parenting & Child Mental Health</h3><p>Supporting parents and caregivers.</p><a class="btn btn-wa" style="font-size:.82rem;padding:8px 16px" href="#contact">Join on WhatsApp</a></div>
+      <div class="card"><div class="icon">🌸</div><h3>Women's Mental Wellness</h3><p>Discussing women's psychological and emotional wellbeing.</p><a class="btn btn-wa" style="font-size:.82rem;padding:8px 16px" href="#contact">Join on WhatsApp</a></div>
+      <div class="card"><div class="icon">🧒</div><h3>Young Minds</h3><p>Age-appropriate youth mental health conversations.</p><a class="btn btn-wa" style="font-size:.82rem;padding:8px 16px" href="#contact">Join on WhatsApp</a></div>
+      <div class="card"><div class="icon">🙏</div><h3>Faith, Hope & Healing</h3><p>Spiritual encouragement alongside mental health awareness.</p><a class="btn btn-wa" style="font-size:.82rem;padding:8px 16px" href="#contact">Join on WhatsApp</a></div>
+    </div>
+    <div class="notice" style="margin-top:30px;max-width:820px;margin-left:auto;margin-right:auto">
+      <strong>Safeguarding:</strong> All groups are moderated. Members do not diagnose one another, recommend stopping medication, or pressure others to share personal experiences. Children and adults are kept in separate spaces. To join, contact us — we will never share your number without consent.
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORIES ============ -->
+<section class="section" id="stories" style="background:var(--cream)">
+  <div class="container">
+    <div class="breadcrumb"><a href="#home">Home</a> / Stories of Hope</div>
+    <div class="section-head"><h2>Stories of Hope & Recovery</h2><p>Someone's story may become another person's reason to keep going. Every story is shared with dignity, consent, and respect.</p></div>
+    <div class="grid grid-3">
+      <article class="story"><div class="thumb"></div><div class="body"><span class="tag">Depression</span><h3>My journey through depression</h3><p>I learned that asking for help was not weakness — it was the bravest thing I had done in years.</p></div></article>
+      <article class="story"><div class="thumb"></div><div class="body"><span class="tag">Recovery</span><h3>How I began recovering from alcohol dependence</h3><p>One day at a time, one honest conversation at a time. Community made the difference.</p></div></article>
+      <article class="story"><div class="thumb"></div><div class="body"><span class="tag">Anxiety</span><h3>Learning to live with anxiety</h3><p>I stopped fighting my mind and started befriending it. That changed everything.</p></div></article>
+      <article class="story"><div class="thumb"></div><div class="body"><span class="tag">Autism</span><h3>Living with a child who has autism</h3><p>Understanding my child's world helped me become a calmer, kinder parent.</p></div></article>
+      <article class="story"><div class="thumb"></div><div class="body"><span class="tag">Grief</span><h3>My experience of grief</h3><p>Grief has no timeline. I learned to carry love and loss together.</p></div></article>
+      <article class="story"><div class="thumb"></div><div class="body"><span class="tag">Healing</span><h3>Surviving an abusive relationship</h3><p>Leaving was hard. Healing was harder. But I am here — and that matters.</p></div></article>
+    </div>
+    <div style="text-align:center;margin-top:36px"><a class="btn btn-primary" href="#contact">Share your story (with consent) →</a></div>
+  </div>
+</section>
+
+<!-- ============ FAITH ============ -->
+<section class="section" id="faith" style="background:#fff">
+  <div class="container">
+    <div class="breadcrumb"><a href="#home">Home</a> / Faith and Wellbeing</div>
+    <div class="faith">
+      <h2>Faith and Wellbeing</h2>
+      <p>“We believe that faith can be a meaningful source of hope, strength, and encouragement. We also recognise the importance of psychological care, professional intervention, and compassionate human connection. Healing is not a sign of weak faith, and seeking professional help is not a failure.”</p>
+    </div>
+    <div class="grid grid-3" style="margin-top:36px">
+      <div class="card"><div class="icon">📖</div><h3>Scriptures for difficult seasons</h3><p>Verses for anxiety, grief, fear, and waiting.</p></div>
+      <div class="card"><div class="icon">🙏</div><h3>Prayer & emotional resilience</h3><p>How prayer can co-exist with professional care.</p></div>
+      <div class="card"><div class="icon">🕊️</div><h3>Forgiveness & healing</h3><p>Understanding forgiveness as a process, not a quick fix.</p></div>
+      <div class="card"><div class="icon">🌅</div><h3>Hope during depression</h3><p>Faith practices that support mental health recovery.</p></div>
+      <div class="card"><div class="icon">💪</div><h3>Faith & addiction recovery</h3><p>Spiritual support alongside treatment and community.</p></div>
+      <div class="card"><div class="icon">🤲</div><h3>Supporting someone who is struggling</h3><p>What to say, what not to say, and how to help.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ASK A QUESTION ============ -->
+<section class="section" id="ask" style="background:var(--cream)">
+  <div class="container">
+    <div class="breadcrumb"><a href="#home">Home</a> / Ask Mind Your Mind</div>
+    <div class="section-head"><h2>Ask Mind Your Mind</h2><p>You have questions. We are here to help you understand. A safe starting point for questions about mental health, relationships, behaviour, emotions, and wellbeing.</p></div>
+    <div class="form-wrap">
+      <div class="notice"><strong>Please note:</strong> This is not an emergency service or a diagnostic tool. If you are in crisis, please use the <a href="#urgent" style="color:var(--teal-dark);text-decoration:underline">urgent help</a> options.</div>
+      <form id="askForm" onsubmit="handleAsk(event)">
+        <div class="field"><label for="askName">Name (optional — you may stay anonymous)</label><input type="text" id="askName" placeholder="Your name or a pseudonym" /></div>
+        <div class="field"><label for="askEmail">Email (so we can reply)</label><input type="email" id="askEmail" placeholder="you@example.com" required /></div>
+        <div class="field"><label for="askTopic">Topic</label>
+          <select id="askTopic"><option>Emotions & feelings</option><option>Anxiety</option><option>Depression</option><option>Relationships</option><option>Family & parenting</option><option>Grief & loss</option><option>Addiction</option><option>Faith & wellbeing</option><option>Other</option></select>
+        </div>
+        <div class="field"><label for="askQuestion">Your question</label><textarea id="askQuestion" placeholder="What would you like to understand?" required></textarea></div>
+        <button class="btn btn-primary" type="submit">Submit question</button>
+        <div class="success-msg" id="askSuccess">Thank you — your question has been received. Our moderated team will respond by email. (Demo only — no message was actually sent.)</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIRECTORY ============ -->
+<section class="section" id="directory" style="background:#fff">
+  <div class="container">
+    <div class="breadcrumb"><a href="#home">Home</a> / Find Professional Support</div>
+    <div class="section-head"><h2>Find Professional Support</h2><p>Verified services in Uganda. Always call ahead to confirm availability and cost.</p></div>
+    <div class="grid grid-2">
+      <div class="dir-card">
+        <h3>Butabika National Referral Hospital</h3>
+        <div class="loc">📍 Kampala, Uganda</div>
+        <ul><li>Psychiatry & mental health inpatient care</li><li>Child & adolescent mental health</li><li>Addiction treatment</li></ul>
+        <div class="contact-row"><a class="btn btn-primary" href="tel:+256414200000">📞 Call</a><a class="btn btn-wa" href="https://wa.me/256700000000">💬 WhatsApp</a><a class="btn btn-ghost" href="mailto:info@butabika.go.ug">✉️ Email</a></div>
+      </div>
+      <div class="dir-card">
+        <h3>Mind Your Mind Counselling</h3>
+        <div class="loc">📍 Kampala & online</div>
+        <ul><li>Individual & couples counselling</li><li>Trauma-informed therapy</li><li>Faith-integrated support</li></ul>
+        <div class="contact-row"><a class="btn btn-primary" href="tel:+256700123456">📞 Call</a><a class="btn btn-wa" href="https://wa.me/256700123456">💬 WhatsApp</a><a class="btn btn-ghost" href="mailto:hello@mindyourmind.ug">✉️ Email</a></div>
+      </div>
+      <div class="dir-card">
+        <h3>Jinja Regional Referral Hospital</h3>
+        <div class="loc">📍 Jinja, Uganda</div>
+        <ul><li>Mental health clinic</li><li>Psychiatric assessment</li><li>Referral pathways</li></ul>
+        <div class="contact-row"><a class="btn btn-primary" href="tel:+256434120000">📞 Call</a><a class="btn btn-ghost" href="mailto:info@jinjahospital.go.ug">✉️ Email</a></div>
+      </div>
+      <div class="dir-card">
+        <h3>Uganda Counselling Association</h3>
+        <div class="loc">📍 Nationwide</div>
+        <ul><li>Directory of registered counsellors</li><li>Professional standards</li><li>Referrals</li></ul>
+        <div class="contact-row"><a class="btn btn-primary" href="tel:+256414000000">📞 Call</a><a class="btn btn-ghost" href="mailto:info@ucauganda.org">✉️ Email</a></div>
+      </div>
+    </div>
+    <div class="notice" style="margin-top:30px;max-width:820px;margin-left:auto;margin-right:auto"><strong>Note:</strong> Listings are examples for this prototype. On the live site, each listing will include verified qualifications, registration details, appointment requirements, and confirmed costs.</div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / REACH OUT ============ -->
+<section class="section" id="contact" style="background:var(--cream)">
+  <div class="container">
+    <div class="breadcrumb"><a href="#home">Home</a> / Contact Us</div>
+    <div class="section-head">
+      <h2>Reach Out — We're Here</h2>
+      <p>You don't have to figure out the right words. Choose whichever way feels easiest — call, WhatsApp, or email. We will listen.</p>
+    </div>
+
+    <!-- Contact method cards -->
+    <div class="contact-methods">
+      <div class="contact-card">
+        <div class="c-icon icon-phone">📞</div>
+        <h3>Call Us</h3>
+        <p>Speak to a member of our team directly. Mon–Sat, 9am–6pm EAT.</p>
+        <a class="btn btn-primary" href="tel:+256700123456">Call +256 700 123 456</a>
+      </div>
+      <div class="contact-card">
+        <div class="c-icon icon-wa">💬</div>
+        <h3>WhatsApp</h3>
+        <p>Message us on WhatsApp for a quick, private reply — including community group requests.</p>
+        <a class="btn btn-wa" href="https://wa.me/256700123456?text=Hello%20Mind%20Your%20Mind%2C%20I%27d%20like%20to%20reach%20out." target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+      <div class="contact-card">
+        <div class="c-icon icon-mail">✉️</div>
+        <h3>Email</h3>
+        <p>Prefer writing? Send us an email and we'll respond within 1–2 working days.</p>
+        <a class="btn btn-amber" href="mailto:hello@mindyourmind.ug?subject=I%27d%20like%20to%20reach%20out">Email hello@mindyourmind.ug</a>
+      </div>
+      <div class="contact-card">
+        <div class="c-icon icon-loc">📍</div>
+        <h3>Visit Us</h3>
+        <p>Kampala, Uganda. Please call ahead to book an appointment.</p>
+        <a class="btn btn-ghost" href="#urgent">Get directions</a>
+      </div>
+    </div>
+
+    <!-- Contact form -->
+    <div class="form-wrap">
+      <h3 style="margin-bottom:14px">Or send us a message</h3>
+      <form id="contactForm" onsubmit="handleContact(event)">
+        <div class="field"><label for="cName">Your name</label><input type="text" id="cName" placeholder="Your name" required /></div>
+        <div class="field"><label for="cEmail">Email</label><input type="email" id="cEmail" placeholder="you@example.com" required /></div>
+        <div class="field"><label for="cPhone">Phone (optional)</label><input type="tel" id="cPhone" placeholder="+256 ..." /></div>
+        <div class="field"><label for="cReason">What is this about?</label>
+          <select id="cReason"><option>General question</option><option>I need support</option><option>Join a community group</option><option>Share my story</option><option>Partner with us</option><option>Media enquiry</option><option>Other</option></select>
+        </div>
+        <div class="field"><label for="cMessage">Message</label><textarea id="cMessage" placeholder="Tell us how we can help — share as much or as little as you like." required></textarea></div>
+        <button class="btn btn-primary" type="submit">Send message</button>
+        <div class="success-msg" id="contactSuccess">Thank you — your message has been received. We'll reply as soon as we can. (Demo only — no message was actually sent.)</div>
+      </form>
+    </div>
+
+    <!-- FAQ -->
+    <div style="max-width:820px;margin:56px auto 0">
+      <div class="section-head"><h2>Frequently Asked Questions</h2></div>
+      <div class="faq-item"><button class="faq-q">Is Mind Your Mind a crisis service? <span class="plus">+</span></button><div class="faq-a">No. We provide education, awareness, and peer support. If you are in immediate danger, please go to the nearest hospital or call emergency services. See our <a href="#urgent" style="color:var(--teal);font-weight:600">urgent help</a> page.</div></div>
+      <div class="faq-item"><button class="faq-q">Is my message confidential? <span class="plus">+</span></button><div class="faq-a">Yes — messages you send us privately are treated confidentially. In community groups, please remember that other members are present; we do not promise absolute confidentiality in a group setting. Never share sensitive details you are not comfortable sharing.</div></div>
+      <div class="faq-item"><button class="faq-q">Can you diagnose me? <span class="plus">+</span></button><div class="faq-a">No. We do not diagnose. We can help you understand your experiences and connect you with a qualified professional who can assess you properly.</div></div>
+      <div class="faq-item"><button class="faq-q">How do I join a WhatsApp community? <span class="plus">+</span></button><div class="faq-a">Contact us via WhatsApp, email, or the form above. Tell us which group you'd like to join. We will add you without sharing your number publicly.</div></div>
+      <div class="faq-item"><button class="faq-q">Do you offer free support? <span class="plus">+</span></button><div class="faq-a">Peer communities are free. Professional counselling may have a cost, and we will always tell you upfront. Our referral directory lists services and any confirmed costs.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ URGENT HELP ============ -->
+<section class="section" id="urgent" style="background:#fff">
+  <div class="container">
+    <div class="breadcrumb"><a href="#home">Home</a> / Get Urgent Help</div>
+    <div style="max-width:820px;margin:0 auto;background:#fdecea;border:1px solid #f5c6c0;border-radius:20px;padding:36px">
+      <h2 style="color:#b23b2a;margin-bottom:14px">If you are in immediate danger</h2>
+      <p style="margin-bottom:20px;color:#7a2a1f">Mind Your Mind is <strong>not</strong> a crisis response service. If you or someone else is experiencing immediate danger, suicidal intent, severe confusion, or a medical emergency, please get urgent in-person help now.</p>
+      <div class="grid grid-2">
+        <div class="card" style="border-color:#f5c6c0"><div class="icon" style="background:#fdecea">🚑</div><h3>Emergency services</h3><p>Call your local emergency number or go to the nearest hospital emergency department.</p><a class="btn btn-coral" href="tel:999">Call 999 (Uganda emergency)</a></div>
+        <div class="card" style="border-color:#f5c6c0"><div class="icon" style="background:#fdecea">🏥</div><h3>Nearest hospital</h3><p>Butabika National Referral Hospital and regional referral hospitals provide emergency mental health care.</p><a class="btn btn-coral" href="tel:+256414200000">Call Butabika</a></div>
+      </div>
+      <p style="margin-top:22px;font-size:.9rem;color:#7a2a1f"><strong>You matter. Your life matters.</strong> Please reach out to a trusted person, a hospital, or emergency services right now. You do not have to go through this alone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px">
+          <div class="brand-mark">M</div>
+          <div class="brand-text"><strong>Mind Your Mind</strong><span>Heal • Grow • Thrive</span></div>
+        </div>
+        <p style="font-size:.9rem;max-width:280px;color:#a9c7c1">Creating safe spaces for healing, growth, and restoration — in Uganda and beyond.</p>
+      </div>
+      <div><h4>Explore</h4><a href="#understand">Understanding Mental Health</a><a href="#support">The Support Corner</a><a href="#community">The Community</a><a href="#stories">Stories of Hope</a></div>
+      <div><h4>Support</h4><a href="#ask">Ask a Question</a><a href="#directory">Find Professional Help</a><a href="#urgent">Get Urgent Help</a><a href="#faith">Faith and Wellbeing</a></div>
+      <div><h4>About</h4><a href="#contact">Contact Us</a><a href="#contact">Privacy & Safety</a><a href="#contact">Moderation Policy</a><a href="#contact">Partner with Us</a></div>
+    </div>
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> Mind Your Mind provides mental health education, awareness, and peer support. Information on this platform is not a substitute for professional psychological assessment, diagnosis, treatment, or emergency care. Participation in peer communities is voluntary, and members are encouraged to seek professional assistance when needed.
+      <br /><br />© <span id="year"></span> Mind Your Mind. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP BUTTON -->
+<a href="https://wa.me/256700123456?text=Hello%20Mind%20Your%20Mind%2C%20I%27d%20like%20to%20reach%20out." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"
+   style="position:fixed;bottom:22px;right:22px;z-index:100;width:58px;height:58px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 20px rgba(37,211,102,.4);font-size:1.6rem;color:#fff;transition:transform .2s">
+  💬
+</a>
+
+<script>
+  // Year
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Accordion (conditions)
+  document.querySelectorAll(".acc-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      this.parentElement.classList.toggle("open");
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll(".faq-q").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      this.parentElement.classList.toggle("open");
+    });
+  });
+
+  // Smooth scroll (already via CSS, but close mobile menu on nav click)
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click', function(){
+      document.querySelector('.nav-links').classList.remove('show');
+    });
+  });
+
+  // Demo form handlers
+  function handleAsk(e){
+    e.preventDefault();
+    document.getElementById("askSuccess").style.display = "block";
+    e.target.reset();
+  }
+  function handleContact(e){
+    e.preventDefault();
+    document.getElementById("contactSuccess").style.display = "block";
+    e.target.reset();
+  }
+</script>
+
+</body>
+</html>
